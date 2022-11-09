@@ -1,0 +1,14 @@
+{
+  "name": "obj_validator",
+  "version": "1.0.0",
+  "description": "A small lib to validate basic atributs of an json",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "moment": "^2.29.4"
+  }
+}
