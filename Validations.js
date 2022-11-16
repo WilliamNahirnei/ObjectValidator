@@ -1,8 +1,5 @@
-const moment = require("moment")
 const ObjectErrorValidation = require("./ObjectErrorValidation")
-
-
-validations = {}
+const validations = require("./BasicValidations")
 
 exports.validateObject = async function (object, validationList) {
     const errorList = await iterateAtributes(object,validationList)
@@ -96,118 +93,6 @@ function atributeHaveErrors(AtributeErrors) {
 
 function atributeListHaveErrors(ListAtributesWithErrors) {
     return ListAtributesWithErrors.length >0
-}
-
-validations.min = function min (value, minValue) {
-    let validationMessage = ''
-    if(isString(value))
-        validationMessage = minString(value, minValue)
-    else if(isNumber(value))
-        validationMessage = minNumber(value, minValue)
-    return validationMessage
-}
-
-
-validations.max = function max (value, maxValue) {
-
-    if(isString(value))
-        return maxString(value, maxValue)
-    else if(isNumber(value))
-        return maxNumber(value, maxValue)
-}
-
-function maxString (value, maxValueParam) {
-    if (!maxValue(value.length, maxValueParam))
-        return `deve ter no maximo ${maxValueParam} caracteres`
-}
-
-function minString (value, minValueParam) {
-    if (!minValue(value.length, minValueParam))
-        return `deve ter no minimo ${minValueParam} caracteres`
-}
-
-function minNumber (value, minValueParam) {
-    if (!minValue(value, minValueParam))
-        return `deve ser no minimo ${minValueParam}`
-}
-
-function maxNumber (value, maxValueParam) {
-    if (!maxValue(value, maxValueParam))
-        return `deve ser no maximo ${maxValueParam}`
-}
-
-function minValue (value, minValue) {
-    return value >= minValue
-}
-
-function maxValue (value, maxValue) {
-    return value <= maxValue
-}
-
-function equal (value, equalValue) {
-    return value == equalValue
-}
-
-validations.size = function size (value, size) {
-    if(isString(value))
-        return sizeArray(value, size)
-}
-
-function sizeArray (array, size) {
-    if(!equal(array.length, size))
-        return `deve ter tamanho ${size}`
-}
-
-
-
-function type (value, expectedType) {
-    return typeof(value) == expectedType
-}
-
-validations.boolean = function boolean (value) {
-    if (!isBoolean(value))
-        return 'deve ser no do tipo booleano'
-}
-
-function isBoolean(value) {
-    return type(value, "boolean")
-}
-
-validations.number = function number (value) {
-    if (!isNumber)
-        return 'deve ser no do tipo numerico'
-}
-
-function isNumber(value) {
-    return type(value, "number")
-}
-
-validations.string = function string (value) {
-    if (!isString(value))
-        return 'deve ser no do tipo string'
-}
-
-function isString(value) {
-    return type(value, "string")
-}
-
-validations.date = function date (value, format) {
-    if (!isValidDate(value, format))
-        return 'tem formato de data invalido'
-}
-
-function isValidDate(value, format) {
-    return moment(value, format).isValid()
-}
-
-validations.email = function email (value) {
-    if (!isValidEmail(value))
-        return 'formato de email invalido'
-}
-
-function isValidEmail(value) {
-    const emailRegex = /^[a-z0-9.]+@[a-z0-9]+\.[a-z]+(\.[a-z]+)?$/i
-    return emailRegex.test(value)
 }
 
 function required (validationList) {
